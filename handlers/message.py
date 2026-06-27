@@ -55,21 +55,21 @@ def _summary(client: SheetsClient) -> str:
             cats[c] = cats.get(c, 0) + t["Amount"]
 
     lines = [f"📊 Summary — {month}\n"]
-    lines.append(f"💰 Income: {income:,.0f}")
-    lines.append(f"💸 Expenses: {expense:,.0f}")
-    lines.append(f"📈 Net: {net:,.0f}\n")
+    lines.append(f"💰 Income: {income:,.0f} ฿")
+    lines.append(f"💸 Expenses: {expense:,.0f} ฿")
+    lines.append(f"📈 Net: {net:,.0f} ฿\n")
 
     if cats:
         lines.append("Expenses by category:")
         for cat, amt in sorted(cats.items(), key=lambda x: -x[1]):
-            lines.append(f"  {cat}: {amt:,.0f}")
+            lines.append(f"  {cat}: {amt:,.0f} ฿")
 
     daily = [a for a in accounts if a.get("Group") == "Daily"]
     if daily:
         lines.append("\n💳 Daily Accounts:")
         for a in daily:
             bal = float(a.get("Balance") or 0)
-            bal_str = f"{bal:,.0f}" if bal else "-"
+            bal_str = f"{bal:,.0f} ฿" if bal else "-"
             icon = "🏦" if a.get("Type") == "savings" else "💳"
             suffix = " (outstanding)" if a.get("Type") == "credit" else ""
             lines.append(f"  {icon} {a['Account']}{suffix}: {bal_str}")
@@ -84,12 +84,12 @@ def _balance(client: SheetsClient) -> str:
     credit = [a for a in accounts if a.get("Type") == "credit"]
     for a in savings:
         bal = float(a.get("Balance") or 0)
-        lines.append(f"🏦 {a['Account']}: {bal:,.0f}")
+        lines.append(f"🏦 {a['Account']}: {bal:,.0f} ฿")
     if credit:
         lines.append("\n💳 Outstanding:")
         for a in credit:
             bal = float(a.get("Balance") or 0)
-            lines.append(f"  {a['Account']}: {bal:,.0f}")
+            lines.append(f"  {a['Account']}: {bal:,.0f} ฿")
     return "\n".join(lines)
 
 
