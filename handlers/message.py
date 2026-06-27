@@ -55,9 +55,9 @@ def _summary(client: SheetsClient) -> str:
             cats[c] = cats.get(c, 0) + t["Amount"]
 
     lines = [f"📊 Summary — {month}\n"]
-    lines.append(f"💰 Income:   {income:>10,.0f}")
-    lines.append(f"💸 Expenses: {expense:>10,.0f}")
-    lines.append(f"📈 Net:      {net:>10,.0f}\n")
+    lines.append(f"💰 Income: {income:,.0f}")
+    lines.append(f"💸 Expenses: {expense:,.0f}")
+    lines.append(f"📈 Net: {net:,.0f}\n")
 
     if cats:
         lines.append("Expenses by category:")
